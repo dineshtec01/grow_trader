@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}ETF Daily Strategy{% endblock %}
+
+{% block content %}
+<button onclick="history.back()" aria-label="Go back"
+  style="background:#3f51b5; color:#fff; border:none; padding:8px 14px; border-radius:8px; cursor:pointer; font-weight:600; margin-bottom:1.5rem;">
+  ← Back
+</button>
+
+<h1>ETF Daily Strategy</h1>
+
+<p>Welcome, {{ session['user']|capitalize }}! Here you can see details and analysis for the ETF Daily Strategy.</p>
+
+<section>
+  <h3>Performance Summary</h3>
+  <ul>
+    <li><strong>Last Trade Date:</strong> 2025-07-09</li>
+    <li><strong>Current Holdings:</strong> 5 ETFs</li>
+    <li><strong>Return YTD:</strong> 12.4%</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Recent Signals</h3>
+  <table class="table table-striped" id="signals-table">
+    <thead>
+      <tr>
+        <th>ETF Symbol</th>
+        <th>ETF Name</th>
+        <th>Current Price</th>
+        <th>52 Week Low</th>
+        <th>% Distance</th>
+        <th>Signal</th>
+        <th>Chart</th>      
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Signals will be inserted here by JS -->
+    </tbody>
+  </table>
+  <p id="loading-msg">Loading signals...</p>
+  <p id="error-msg" style="color:red; display:none;">Failed to load signals.</p>
+</section>
+
+<script>
+  async function loadSignals() {
+    const tableBody = document.querySelector("#signals-table tbody");
+    const loadingMsg = document.getElementById("loading-msg");
+    const errorMsg = document.getElementById("error-msg");
+
+    try {
+      const response = await fetch("{{ url_for('api.get_etf_signals') }}");
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+      const signals = await response.json();
+
+      loadingMsg.style.display = "none";
+
+      if(signals.length === 0){
+        tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No signals found.</td></tr>';
+        return;
+      }
+
+      signals.forEach(signal => {
+        const tr = document.createElement("tr");
+       
+        tr.innerHTML = `          
+          <td>${signal.symbol}</td>
+          <td>${signal.name}</td>
+          <td>${signal.price}</td>
+          <td>${signal.wk52low}</td>
+          <td>${signal.distance}</td>
+          <td>${signal.symbol}</td>
+          <td><a href="${signal.chart}" target="_blank" rel="noopener noreferrer">Chart</a>
+    </td>
+        `;
+
+        tableBody.appendChild(tr);
+      });
+
+    } catch (error) {
+      loadingMsg.style.display = "none";
+      errorMsg.style.display = "block";
+      console.error("Error fetching signals:", error);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", loadSignals);
+</script>
+
+{% endblock %}

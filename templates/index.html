@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Strategy Dashboard{% endblock %}
+
+{% block head %}
+<style>
+  .content-wrapper {
+    max-width: 900px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+  }
+
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .strategy-box {
+    background: #3f51b5;
+    color: white;
+    border-radius: 12px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    box-shadow: 0 3px 8px rgba(63, 81, 181, 0.3);
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  .strategy-box.etf {
+    background: #43a047;
+  }
+
+  .strategy-box:hover,
+  .strategy-box:focus {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(63, 81, 181, 0.5);
+    outline: none;
+  }
+
+  @media (max-width: 600px) {
+    .strategy-box {
+      height: 80px;
+      font-size: 1rem;
+      padding: 0 0.5rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+  <h2 style="text-align:center; margin-bottom: 2rem;">📈 Stock Strategies</h2>
+<div class="strategy-grid" role="list">
+  {% for stock in stocks %}
+  {% set strategy_url = url_for('strategy', name=stock|lower) %}
+    <div tabindex="0" role="listitem" class="strategy-box"
+         onclick="location.href='{{ strategy_url }}'"
+         onkeypress="if(event.key === 'Enter'){ location.href='{{ strategy_url }}'; }"
+         aria-label="Go to {{ stock|capitalize }} strategy">
+      {{ stock|capitalize }}
+    </div>
+  {% endfor %}
+</div>
+  <h2 style="text-align:center; margin: 3rem 0 1.5rem;">📊 ETF Strategies</h2>
+  <div class="strategy-grid" role="list">
+    {% for etf in etfs %}
+    {% set strategy_url = url_for('strategy', name=etf|lower) %}
+    <div tabindex="0" role="listitem" class="strategy-box etf"
+         onclick='location.href="{{ strategy_url }}"'
+         onkeypress='if(event.key === "Enter"){ location.href="{{ strategy_url }}"; }'
+         aria-label="Go to {{ etf|upper }} strategy">
+      {{ etf|upper }}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

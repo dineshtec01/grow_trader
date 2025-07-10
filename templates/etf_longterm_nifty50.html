@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}ETF Daily Strategy{% endblock %}
+
+{% block content %}
+<button onclick="history.back()" aria-label="Go back"
+  style="background:#3f51b5; color:#fff; border:none; padding:8px 14px; border-radius:8px; cursor:pointer; font-weight:600; margin-bottom:1.5rem;">
+  ← Back
+</button>
+
+<h1>ETF Daily Strategy</h1>
+
+<p>Welcome, {{ session['user']|capitalize }}! Here you can see details and analysis for the ETF Daily Strategy.</p>
+
+<section>
+  <h3>Performance Summary</h3>
+  <ul>
+    <li><strong>Last Trade Date:</strong> 2025-07-09</li>
+    <li><strong>Current Holdings:</strong> 5 ETFs</li>
+    <li><strong>Return YTD:</strong> 12.4%</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Recent Signals</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>ETF Symbol</th>
+        <th>Signal</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sig in signals %}
+      <tr>
+        <td>{{ sig.date }}</td>
+        <td>{{ sig.symbol }}</td>
+        <td>{{ sig.signal }}</td>
+        <td>{{ sig.price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

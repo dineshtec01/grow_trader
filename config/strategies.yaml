@@ -1,0 +1,10 @@
+# strategies.yaml
+
+stocks:
+  - nifty_momentum
+  - swing_breakout
+
+etfs:
+  - etf_daily
+  - etf_longterm_nifty50
+  - NASDAQ_and_MON100
