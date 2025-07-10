@@ -1,0 +1,9 @@
+requests
+pandas
+python-dotenv
+yfinance
+tabulate
+ta
+Flask
+schedule
+api
