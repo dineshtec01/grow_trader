@@ -1,0 +1,78 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# Environment variable or secret config files
+.env
+.env.*
+#config/config.properties
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# VSCode settings
+.vscode/
+
+# PyCharm settings
+.idea/
+
+# macOS system files
+.DS_Store
+
+# Test / coverage results
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# logs
+*.log
+logs/
+*.tmp
+
+# CSVs or large data dumps
+*.csv
+
+# Compiled files
+*.pyd
+*.pyo
+*.exe
+*.dll
+*.obj
+*.o
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Docker
+*.pid
+
+# Jupyter runtime
+~/.local/share/jupyter/runtime/
+
+
+/home/dinesh/Documents/study/python/grow_trader/.gitignore
