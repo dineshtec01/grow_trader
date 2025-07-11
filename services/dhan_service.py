@@ -56,7 +56,7 @@ def place_buy_order(security_id, quantity):
         "orderType": "MARKET",
         "validity": "DAY",
         "securityId": security_id,
-        "quantity": quantity,
+        "quantity": int(quantity),
         "disclosedQuantity": 0,
         "price": 0,
         "afterMarketOrder": False,
@@ -96,7 +96,7 @@ def place_sell_order(security_id, quantity):
     return response.json()
 
 def get_holdings():
-    print("==========> BASE_URL is:", BASE_URL)
+    #print("==========> BASE_URL is:", BASE_URL)
     url = f"{BASE_URL}/holdings"
     response = requests.get(url, headers=HEADERS)
     return response.json()

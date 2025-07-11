@@ -7,11 +7,11 @@ def read_stock_symbols1(csvFile="../data/symbols.csv"):
 
 def read_master_etfs(from_github=False):
     if from_github:
-        log_message("Reading from github")
+        #log_message("Reading from github")
         url = "https://raw.githubusercontent.com/dineshtec01/data-reference/main/trade/etf-scrip-master.csv"
         df = pd.read_csv(url)
     else:
-        log_message("Reading from local")
+        #log_message("Reading from local")
         df = pd.read_csv("../data/etf-scrip-master.csv", low_memory=False)
 
     # Filter ETF records

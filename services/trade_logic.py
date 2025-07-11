@@ -71,8 +71,9 @@ def evaluate_and_buy_etf_daily_strategy(df_etfs, df_holdings):
         symbol = fallback_row['SEM_TRADING_SYMBOL']
         cmp = fallback_row['current_price']
         security_id = fallback_row['SEM_SMST_SECURITY_ID']
+        quantity = get_quantity(MAX_AMOUNT_DAILY_ETF, cmp)
         log_message(f"Buying {symbol} {security_id} quantity : {quantity} at price {cmp} as fallback")
-        dhan_service.place_buy_order(security_id, get_quantity(MAX_AMOUNT_DAILY_ETF, cmp))
+        dhan_service.place_buy_order(security_id, quantity)
 
 def evaluate_and_sell_etf_daily_strategy(df_holdings):
     #log_message("SELL logic started")
